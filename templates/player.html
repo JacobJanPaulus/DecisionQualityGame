@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Playing the Decision Quality Game</title>
+
+    <!-- Load the relevant scripts -->
+     <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/join_and_leave_game.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/render_leaderboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/render_level.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/show_summary_modal.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/show_wrong_answer_modal.js') }}"></script>    
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+    <!-- By default hide all parts of the player page-->
+    <style>
+        #joinForm {
+            margin-top: 20px;
+            display: none;
+        }
+        #gameStatusWaiting {
+            margin-top: 20px;
+            display: none;
+        }
+        #gameStatusStarted{
+            margin-top: 20px;
+            display: none;
+        }
+        #gameStatusEnded {
+            margin-top: 20px;
+            display: none;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Show this part only before player has joined. -->
+        <div id="joinForm">
+            <h1>🎮 Join a Game</h1>
+            <input type="text" id="username" placeholder="Enter your name" required /><br>
+            <input type="text" id="gameSessionId" placeholder="Enter Game ID" required /><br>
+            <button onclick="joinGame()">Join Game</button>
+        </div>
+
+        <!-- Show this part only while game status is waiting. -->
+        <div id="gameStatusWaiting">
+            <h2>Waiting for the game to start...</h2>
+            <p id="playerName"></p>
+        </div>
+
+        <!-- Show this part only while game status is started.
+             The levels are rendered within this part based on the building blocks defined here. -->
+        <div id="gameStatusStarted">
+            <h2 id="levelTitle"></h2>
+            <div id="levelDescription"></div>
+            <div id="levelImage"></div>
+            <div id="levelQuestions"></div>         
+            <div id="levelButtons"></div>
+        </div>
+
+        <!-- Show this part only while game status is ended. -->
+        <div id="gameStatusEnded">
+            <h2>The game has ended</h2>
+            <hr>
+            <div id="leaderboard"></div>
+            <button onclick="leaveGame()">Leave Game</button>
+        </div>
+
+        <!-- Show a pop-up messages for wrong answer given -->
+        <div id="wrongAnswerModal" class="modal">
+            <div class="modal-content">
+                <span class="modal-title">Wrong Answer</span>
+                <p id="wrongAnswerMessage">This is the message</p>
+                <button onclick="closeWrongAnswerModal()">Close</button>
+            </div>
+        </div>
+        
+        <!-- Show a pop-up messages for background info -->
+        <div id="summaryModal" class="modal">
+            <div class="modal-content">
+                <span class="modal-title">Problem Summary</span>
+                <p id="summaryMessage">This is the message</p>
+                <button onclick="closeSummaryModal()">Close</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        // Define the socket communication
+        const socket = io();
+
+		// Store the state for the player
+        let username = "";
+        let gameSessionId = "";
+
+        /**
+         * Shows the div with the given block_name. Hides all other 
+         * @param {string} block_name 
+         */
+        function display(block_name) {
+            // First Hide all
+            document.getElementById('joinForm').style.display = 'none';
+            document.getElementById('gameStatusWaiting').style.display = 'none';
+            document.getElementById('gameStatusStarted').style.display = 'none';
+            document.getElementById('gameStatusEnded').style.display = 'none'; 
+
+            // Show one
+            if (block_name === 'joinForm'){
+                document.getElementById('joinForm').style.display = 'block';
+            }
+            else if (block_name === 'gameStatusWaiting'){
+                document.getElementById('gameStatusWaiting').style.display = 'block';
+            }
+            else if (block_name === 'gameStatusStarted'){
+                document.getElementById('gameStatusStarted').style.display = 'block';
+            }
+            else if (block_name === 'gameStatusEnded'){
+                document.getElementById('gameStatusEnded').style.display = 'block';
+            }
+        }
+
+        // If the page is loaded ...
+		window.onload = function () {
+            // Get data from the cookies
+			username = getCookie('username');
+			gameSessionId = getCookie('gameSessionId');
+
+            // If user and session are known, the player rejoins game in progress
+            if (username && gameSessionId) {
+                console.log("Cookie:", username, gameSessionId);
+                // Rejoin the game
+                socket.emit('get_level_data', { username: username, game_session_id: gameSessionId });
+
+                document.getElementById('username').value = username;
+                document.getElementById('gameSessionId').value = gameSessionId;
+            }
+            else {
+                // Show the join form
+                display('joinForm');
+            }            
+		};
+
+        socket.on('player_joined', data => {
+            console.log('player joined')
+
+            if (data.username === username){
+                // Show the waiting page parts
+                display('gameStatusWaiting');
+
+                // Add welcome message
+                document.getElementById('playerName').innerText = `Welcome, ${data.username}!`;
+            }
+        });
+
+        socket.on('game_started', () => {
+            console.log('game started')
+
+            // Show the started page parts
+            display('gameStatusStarted');
+
+            // Request the game data for the next level       
+			socket.emit('get_level_data', { username: username, game_session_id: gameSessionId });
+        });
+
+        socket.on('game_ended', () => {
+            console.log('game ended')
+            // Show the ended page parts - Only if the player has not yet left the game
+            if (username != '' ){
+                display('gameStatusEnded');
+            }
+        });
+        
+        socket.on('game_data_refresh_needed', () => {
+            console.log("refresh needed");
+
+            // Request the game data for the next level       
+			socket.emit('get_level_data', { username: username, game_session_id: gameSessionId });
+        });
+
+        socket.on('level_data', data => {
+            // Level data is received to render the level
+            console.log("Received level data:", data);
+
+            // No data ... should not happen
+            if (data === undefined ){
+                return;
+            }
+
+            // If user was on an old cookie, show the join from
+            if (data.new_game){
+                clearCookies();
+                display('joinForm');
+                return;
+            }
+
+            // Depending on the game progress hide the blocks that are not relevant
+            if (data.progress === "Finished"){
+                display('gameStatusEnded');
+                socket.emit('get_leaderboard', { game_session_id: gameSessionId });
+                return;
+            }
+
+            // Show relevent block
+            display('gameStatusStarted')
+            
+            // Render the level
+            renderLevel(data)
+        });
+
+        socket.on('leaderboard_data', data => {
+                console.log('Received leaderboard_data:', data);
+                renderLeaderboard(data.leaderboard);
+            });
+
+        socket.on('wrong_answer', data => {
+            showWrongAnswerModal(data.message);
+        });
+      
+        socket.on('error', data => {
+            alert(data.message);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Decision Quality</title>
+    <script src="{{ url_for('static', filename='js/render_leaderboard.js') }}"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎩 Decision Quality Game</h1>
+
+        {% if game_session_id %}
+        <div>
+            <h2>
+                {{ game_name }}<br>
+                🎮 Game ID: <span id="gameSessionId">{{ game_session_id }}</span>
+            </h2>
+
+            <div id="buttons"></div>
+            <hr>
+            <div id="leaderboard"></div>
+            
+        </div>
+        {% else %}
+        <form action="/create_game" method="POST">
+            <label>Select a decision problem for the game:</label><br>
+            <select name="game_id" id="game_id" required>
+                <option value="">-- Select a decision problem --</option>
+                {% for key, value in available_games.items() %}
+                <option value="{{ key }}">{{ value['name'] }}</option>
+                {% endfor %}
+            </select><br>
+            <button type="submit">Create Game</button>
+        </form>
+        {% endif %}
+    </div>
+
+    <script>
+        const socket = io();
+        const gameName = '{{game_name}}';
+        gameStatus = '{{game_status}}';
+        const gameSessionId = '{{game_session_id}}';
+        
+        const updateButtons = () => {
+            console.log('updateButtons:', gameStatus);
+            const buttonsDiv = document.getElementById('buttons');
+            buttonsDiv.innerHTML = '';
+
+            if (gameStatus === 'WAITING') {
+                const startBtn = document.createElement('button');
+                startBtn.textContent = 'Start Game';
+                startBtn.onclick = () => {
+                    console.log('Emitting start_game for gameId:', gameSessionId);
+                    socket.emit('start_game', { game_session_id: gameSessionId });
+                };
+                buttonsDiv.appendChild(startBtn);
+            }
+
+            if (gameStatus === 'STARTED') {
+                const endBtn = document.createElement('button');
+                endBtn.textContent = 'End Game';
+                endBtn.onclick = () => {
+                    console.log('Emitting end_game for gameId:', gameSessionId);
+                    socket.emit('end_game', { game_session_id: gameSessionId });
+                };
+                buttonsDiv.appendChild(endBtn);
+            }
+
+        };
+
+        if (gameSessionId) {
+            socket.on('connect', () => {
+                console.log('Connected to server');
+                socket.emit('join_as_master', { game_session_id: gameSessionId });
+                // Trigger a leaderboard refresh
+                socket.emit('get_leaderboard', { game_session_id: gameSessionId });
+            });
+
+            socket.on('player_joined', data => {
+                console.log('Player joined:', data.username);
+                // Trigger a leaderboard refresh
+                socket.emit('get_leaderboard', { game_session_id: gameSessionId });
+            });
+
+            socket.on('game_started', () => {
+                console.log('Received game_started');
+                gameStatus = 'STARTED'
+                updateButtons();
+                // Trigger a leaderboard refresh
+                socket.emit('get_leaderboard', { game_session_id: gameSessionId });
+            });
+
+            socket.on('game_ended', () => {
+                console.log('Received game_ended');
+                gameStatus = 'ENDED'
+                updateButtons();
+                // Trigger a leaderboard refresh
+                socket.emit('get_leaderboard', { game_session_id: gameSessionId });
+            });
+
+            socket.on('leaderboard_data', data => {
+                console.log('Received leaderboard_data:', data);
+                renderLeaderboard(data.leaderboard);
+            });
+
+            updateButtons(); // Initial button setup
+        }
+
+        socket.on('error', data => {
+            alert(data.message);
+        });
+        
+    </script>
+</body>
+
+</html>

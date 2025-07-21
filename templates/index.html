@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Welcome to Decision Quality!</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎮 Welcome to Decision Quality!</h1>
+        <p>Are you hosting the game or joining as a player?</p>
+        <div>
+            <a href="/master"><button>Setup a Game</button></a>
+            <a href="/player"><button>Join a Game</button></a>
+        </div>
+    </div>
+</body>
+
+</html>

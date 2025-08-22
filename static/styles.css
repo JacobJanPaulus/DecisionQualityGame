@@ -78,21 +78,31 @@ button:hover {
   background-color: rgba(0,0,0,0.4); /* Black with opacity */
 }
 
-.modal-content {
-  background-color: #fff;
-  margin: 15% auto;
-  padding: 20px;
-  border-radius: 8px;
-  width: 300px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  text-align: center;
-}
-
 .modal-title {
   font-weight: bold;
   font-size: 18px;
   margin-bottom: 10px;
   display: block;
+}
+
+.modal-summary-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80vw; /* 80% of view port width */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.modal-wrong-answer-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 8px;
+  width: 40vw; /* 40% of view port width */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  text-align: center;
 }
 
 /* For styling the title with help icon */

@@ -7,12 +7,12 @@ investment_decision= {
 
     #Text for the info button
     "summary": "Ga op zoek naar de beste investeringsbeslissing. \n\n"
-            "Analyseer een bedrijf dat machines verkoopt op een markt die pieken en dalen kent. Zowel pieken als dalen duren beide 2 jaar. Een piek wordt \n"
-            "altijd gevolgd door een dal en vice versa. Op dit moment bevindt het bedrijf zich in een dal, en met een kans van 50% zal het bedrijf het \n"
-            "komende jaar te maken krijgen met een piek. Het aantal machines dat het bedrijf verkoopt is 10 eenheden tijdens een piek en 5 eenheden tijdens\n"
-            "een dal. De marge op de huidige versie (A) van de machine is 10 miljoen euro per eenheid. Het bedrijf heeft de mogelijkheid om een R&D-project\n"
-            "uit te voeren dat 2 jaar in beslag neemt. Na het eerste jaar resulteert het R&D-project in een verbeterde versie (B) van de machine (zeker).\n"
-            "Na het tweede jaar zal het R&D-project met een kans van 20% een nog betere versie (C) van de machine opleveren. De kosten voor het R&D-project\n"
+            "Analyseer een bedrijf dat machines verkoopt op een markt die pieken en dalen kent. Zowel pieken als dalen duren beide 2 jaar. Een piek wordt "
+            "altijd gevolgd door een dal en vice versa. Op dit moment bevindt het bedrijf zich in een dal, en met een kans van 50% zal het bedrijf het "
+            "komende jaar te maken krijgen met een piek. Het aantal machines dat het bedrijf verkoopt is 10 eenheden tijdens een piek en 5 eenheden tijdens "
+            "een dal. De marge op de huidige versie (A) van de machine is 10 miljoen euro per eenheid. Het bedrijf heeft de mogelijkheid om een R&D-project "
+            "uit te voeren dat 2 jaar in beslag neemt. Na het eerste jaar resulteert het R&D-project in een verbeterde versie (B) van de machine (zeker). "
+            "Na het tweede jaar zal het R&D-project met een kans van 20% een nog betere versie (C) van de machine opleveren. De kosten voor het R&D-project "
             "bedragen 165 miljoen euro. Het project kan niet worden gestopt na het eerste jaar. De marge van versie B van de machine is 15 miljoen euro per \n"
             "eenheid en de marge van versie C van de machine is 20 miljoen euro per eenheid. Het bedrijf heeft ook de optie om eerst een proof of \n"
             "concept-project uit te voeren voordat het R&D-project wordt gestart. Het proof of concept-project kost 30 miljoen euro en duurt 1 jaar om te \n"
@@ -34,7 +34,23 @@ investment_decision= {
             "type": QuestionType.NONE.name,
             
             # Every level must have a description
-            "description": "Vind de beste investeringsbeslissing.\n\n...",
+            "description": "Ga op zoek naar de beste investeringsbeslissing. \n\n"
+            "Analyseer een bedrijf dat machines verkoopt op een markt die pieken en dalen kent. Zowel pieken als dalen duren beide 2 jaar. Een piek wordt "
+            "altijd gevolgd door een dal en vice versa. Op dit moment bevindt het bedrijf zich in een dal, en met een kans van 50% zal het bedrijf het "
+            "komende jaar te maken krijgen met een piek. Het aantal machines dat het bedrijf verkoopt is 10 eenheden tijdens een piek en 5 eenheden tijdens "
+            "een dal. De marge op de huidige versie (A) van de machine is 10 miljoen euro per eenheid. Het bedrijf heeft de mogelijkheid om een R&D-project "
+            "uit te voeren dat 2 jaar in beslag neemt. Na het eerste jaar resulteert het R&D-project in een verbeterde versie (B) van de machine (zeker). "
+            "Na het tweede jaar zal het R&D-project met een kans van 20% een nog betere versie (C) van de machine opleveren. De kosten voor het R&D-project\n"
+            "bedragen 165 miljoen euro. Het project kan niet worden gestopt na het eerste jaar. De marge van versie B van de machine is 15 miljoen euro per \n"
+            "eenheid en de marge van versie C van de machine is 20 miljoen euro per eenheid. Het bedrijf heeft ook de optie om eerst een proof of \n"
+            "concept-project uit te voeren voordat het R&D-project wordt gestart. Het proof of concept-project kost 30 miljoen euro en duurt 1 jaar om te \n"
+            "voltooien. Als het proof of concept-project succesvol is en het bedrijf het R&D project uitvoert, kan het bedrijf een jaar later machine versie \n"
+            "B gaan verkopen en machine versie C na twee jaar (zeker). Het R&D-project zal het bedrijf een extra 120 miljoen euro kosten, zodat de totale \n"
+            "R&D-kosten in deze situatie 150 miljoen euro bedragen. Als het proof of concept niet succesvol is, weet het bedrijf dat het uitvoeren van het \n"
+            "R&D-project alleen mogelijk maakt om machine versie B na één jaar te verkopen, d.w.z. het bedrijf kan nooit machine versie C verkopen. Na het \n"
+            "eerste (pilot) jaar kan het bedrijf besluiten om het R&D-project voort te zetten of te stoppen. In het laatste geval blijft het bedrijf machine \n"
+            "versie A verkopen. Op het moment dat het bedrijf besluit om het project al dan niet voort te zetten, weet het of het te maken heeft met een dal \n"
+            "of een piek. Het bedrijf schat dat de kans op succes voor het proof of concept-project gelijk is aan 80%.",
                 
             # Score if the player gives the correct answer
             "score": 1

@@ -1,4 +1,5 @@
 import uuid
+import datetime
 from enum import Enum
 from games import available_games 
 
@@ -16,6 +17,7 @@ class Player:
         self._progress: str = "Waiting"
         self._current_level: int = -1
         self._score: int = 0
+        self._time_last_score: datetime = datetime.datetime.now()
 
     @property
     def name(self) -> str:
@@ -33,6 +35,10 @@ class Player:
     def score(self) -> int:
         return self._score
     
+    @property
+    def time_last_score(self) -> datetime:
+        return self._time_last_score
+
     def set_finished(self):
         self._progress = "Finished"
 
@@ -41,7 +47,10 @@ class Player:
         self._progress = f"At level {self._current_level}"
 
     def add_to_score(self, score: int):
+        # Update the score 
         self._score += score
+        # Update the time of last score - Used for  tie breaker in the leaderboard
+        self._time_last_score = datetime.datetime.now()
 
 class GameSession:
     def __init__(self, game_id):
@@ -101,10 +110,14 @@ class GameSession:
     def get_leaderboard(self):
         leaderboard = []
         for player in self._players.values():
-            leaderboard.append( (player.name, player.progress, player.score))
+            leaderboard.append( (player.name, player.progress, player.score, player.time_last_score) )
 
-        # Sort the leaderboard on decreasing scores
-        leaderboard.sort(key=lambda entry: entry[2], reverse=True)
+        # Sort the leaderboard on decreasing scores and tie breaker 
+        leaderboard.sort(key=lambda entry: (-entry[2], entry[3]))
+
+        # Drop the last column (time_last_score) before returning
+        leaderboard = [entry[:-1] for entry in leaderboard]
+
         return leaderboard
     
     def start(self):

@@ -1,0 +1,39 @@
+ {
+    "name": "Test Example",
+    "summary": "This is just an example for testing the code...",
+    "levels": [
+        {
+            "name": "Game introduction",
+            "type": "NONE",
+            "description": "Example of a game introduction description. Just press next to continue",
+            "score": 1
+        },
+        {
+            "name": "Example level 1",
+            "type": "OPTIONS",
+            "description": "Example level 1. Select Yes as the answer",
+            "questions": [
+                {
+                    "question" : "My answer is:", 
+                    "answer": "Yes",
+                    "hint" : "Select Yes",
+                    "options": ["Yes", "No"]
+                }
+            ],
+            "score": 5
+        },
+        {
+            "name": "Example level 2",
+            "type": "NUMERIC",
+            "description": "Example level 2. Give 1 as the answer",
+            "questions": [
+                {
+                    "question" : "My answer is:", 
+                    "answer": 1,
+                    "hint": "Enter value 1"
+                }
+            ],
+            "score": 10
+        }
+    ]
+}

@@ -18,7 +18,7 @@
         {% if game_session_id %}
         <div>
             <h2>
-                {{ game_name }}<br>
+                {{ decision_problem_name }}<br>
                 🎮 Game ID: <span id="gameSessionId">{{ game_session_id }}</span>
             </h2>
 
@@ -32,7 +32,7 @@
             <label>Select a decision problem for the game:</label><br>
             <select name="game_id" id="game_id" required>
                 <option value="">-- Select a decision problem --</option>
-                {% for key, value in available_games.items() %}
+                {% for key, value in decision_problems.items() %}
                 <option value="{{ key }}">{{ value['name'] }}</option>
                 {% endfor %}
             </select><br>
@@ -43,7 +43,7 @@
 
     <script>
         const socket = io();
-        const gameName = '{{game_name}}';
+        const decisionProblemName = '{{decision_problem_name}}';
         gameStatus = '{{game_status}}';
         const gameSessionId = '{{game_session_id}}';
         

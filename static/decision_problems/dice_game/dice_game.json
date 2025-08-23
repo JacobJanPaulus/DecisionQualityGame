@@ -1,0 +1,242 @@
+{
+    "name": "Dice game",
+    "summary": "You are asked to participate in a game of dice. The croupier will roll a regular dice two times and if the product of the resulting pips is at least 19, you get a pay-off of 36€. The stake for the game is 9€.\n\nWhen the croupier sees your hesitance to play, you are offered to see the result of the first roll for 4€, before paying additional 6€ to continue to the second dice roll.\n\nWhat will you do to maximize your result?",
+    "levels": [
+        {
+            "name": "Game introduction",
+            "type": "NONE",
+            "description": "You are asked to participate in a game of dice. The croupier will roll a regular dice two times and if the product of the resulting pips is at least 19, you get a pay-off of 36€. The stake for the game is 9€.\n\nWhen the croupier sees your hesitance to play, you are offered to see the result of the first roll for 4€, before paying additional 6€ to continue to the second dice roll.\n\nWhat will you do to maximize your result?",
+            "score": 1
+        },
+        {
+            "name": "Framing",
+            "type": "OPTIONS",
+            "description": "To help the decision-making process we should be clear on the framing;\n\nWhat can be considered as 'given', and is out of scope for the decision at hand?\nWhat is to be decided 'later' and not important for now?\nWhat is actually a decision to take now and is 'in scope'?",
+            "questions": [
+                {
+                    "question" : "Let the crourpier role one or two dice", 
+                    "answer": "in scope",
+                    "hint": "Does this effect how you play the game and its outcome?",
+                    "options": ["given", "in scope", "later", "not a decision"]
+                },
+                { 
+                    "question" : "Play the game a second time or not", 
+                    "answer": "later",
+                    "hint": "Does this effect how you play the first game?" ,
+                    "options": ["given", "in scope", "later", "not a decision"]
+                },
+                {
+                    "question" : "Participate in playing the game or not", 
+                    "answer": "in scope",
+                    "hint": "Does this effect the outcome? How much you win or lose?",
+                    "options": ["given", "in scope", "later", "not a decision"]
+                },
+                { 
+                    "question" : "You like to play games", 
+                    "answer": "not a decision",
+                    "hint": "This is not a dicision but a value that might influence your decision making" ,
+                    "options": ["given", "in scope", "later", "not a decision"]
+                }
+            ],
+            
+            "score": 10
+        },
+        {
+            "name": "Decision tree (Step 1)",
+            "type": "NUMERIC",
+            "description": "Add to the decision tree the probabilities, cost and pay-out",
+            "image": "dice_game_decision_tree1.jpg",
+            "questions": [
+                { 
+                    "question" : "What is the probability p1?", 
+                    "answer": 0.778,
+                    "hint": "There are 6 x 6 possible combinations of two dice. 8 have a product of pips being 19 or higher."
+                },
+                { 
+                    "question" : "What is the probability p2?", 
+                    "answer": 0.222,
+                    "hint": "There are 6 x 6 possible combinations of two dice. 8 have a product of pips being 19 or higher."
+                },
+                { 
+                    "question" : "The is the cost c1 and c2?", 
+                    "answer": 9,
+                    "hint": "" 
+                },
+                { 
+                    "question" : "The is the cost c3?", 
+                    "answer": 0,
+                    "hint": "" 
+                },
+                { 
+                    "question" : "The is the pay-out v1?", 
+                    "answer": 0,
+                    "hint": "" 
+                },
+                { 
+                    "question" : "The is the pay-out v2?", 
+                    "answer": 36,
+                    "hint": "" 
+                },
+                { 
+                    "question" : "The is the pay-out v3?", 
+                    "answer": 0,
+                    "hint": "" 
+                }
+            ],
+            "score": 10
+        },
+        {
+            "name": "Decision tree (Step 2)",
+            "type": "NUMERIC",
+            "description": "Add to the decision tree the probabilities, cost and pay-out",
+            "image": "dice_game_decision_tree2.jpg",
+            "questions": [
+                { 
+                    "question" : "What is the probability p1?", 
+                    "answer": 0.5,
+                    "hint": ""
+                },
+                { 
+                    "question" : "What is the probability p2?", 
+                    "answer": 1,
+                    "hint": ""
+                },
+                { 
+                    "question" : "What is the probability p3?", 
+                    "answer": 0,
+                    "hint": ""
+                },
+                { 
+                    "question" : "The is the cost c1 and c2?", 
+                    "answer": 10,
+                    "hint": ""
+                },
+                { 
+                    "question" : "The is the cost c3?", 
+                    "answer": 4,
+                    "hint": ""
+                },
+                { 
+                    "question" : "The is the pay-out v1, v2 and v3?",
+                    "answer": 0,
+                    "hint": ""
+                }
+            ],
+            "score": 10
+        },
+        {
+            "name": "Decision tree (Step 3)",
+            "type": "NUMERIC",
+            "description": "Add to the decision tree the probabilities, cost and pay-out",
+            "image": "dice_game_decision_tree3.jpg",
+            "questions": [
+                { 
+                    "question" : "What is the probability p1?", 
+                    "answer": 0.167,
+                    "hint": ""
+                },
+                { 
+                    "question" : "What is the probability p2?", 
+                    "answer": 0.667,
+                    "hint": ""
+                },
+                { 
+                    "question" : "What is the probability p3?", 
+                    "answer": 0.333,
+                    "hint": ""
+                },
+                { 
+                    "question" : "The is the cost c1 and c2?", 
+                    "answer": 10,
+                    "hint": ""
+                },
+                { 
+                    "question" : "The is the cost c3?", 
+                    "answer": 4,
+                    "hint": ""
+                },
+                { 
+                    "question" : "The is the pay-out v1?",
+                    "answer": 0,
+                    "hint": ""
+                },
+                { 
+                    "question" : "The is the pay-out v2?",
+                    "answer": 36,
+                    "hint": ""
+                },
+                { 
+                    "question" : "The is the pay-out v3?",
+                    "answer": 0,
+                    "hint": ""
+                }
+            ],
+
+            "score": 10
+        },
+        {
+            "name": "Decision tree (Step 4)",
+            "type": "NUMERIC",
+            "description": "Add to the decision tree the probabilities, cost and pay-out",
+            "image": "dice_game_decision_tree4.jpg",
+            "questions": [
+                { 
+                    "question" : "What is the probability p1?", 
+                    "answer": 0.333,
+                    "hint": ""
+                },
+                { 
+                    "question" : "What is the probability p2?", 
+                    "answer": 0.5,
+                    "hint": ""
+                },
+                { 
+                    "question" : "What is the probability p3?", 
+                    "answer": 0.5,
+                    "hint": ""
+                },
+                { 
+                    "question" : "The is the cost c1 and c2?", 
+                    "answer": 10,
+                    "hint": ""
+                },
+                { 
+                    "question" : "The is the cost c3?", 
+                    "answer": 4,
+                    "hint": ""
+                },
+                { 
+                    "question" : "The is the pay-out v1?",
+                    "answer": 0,
+                    "hint": ""
+                },
+                { 
+                    "question" : "The is the pay-out v2?",
+                    "answer": 36,
+                    "hint": ""
+                },
+                { 
+                    "question" : "The is the pay-out v3?",
+                    "answer": 0,
+                    "hint": ""
+                }
+            ],
+            "score": 10
+        },
+        {
+            "name": "Decision tree (Step 5)",
+            "type": "OPTIONS",
+            "description": "Make a decision such that the expected outcome is maximized.",
+            "image": "dice_game_decision_tree5.jpg",
+            "questions": [
+                { 
+                    "question" : "What is the best option?", 
+                    "answer": "Roll first die",
+                    "hint": "Which decision has the highest expected value on Pay-off minus Cost?" ,
+                    "options" : ["Play", "Roll first die", "Don't play"]
+                }
+            ],
+            "score": 10
+        }
+    ]
+}

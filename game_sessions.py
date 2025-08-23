@@ -1,7 +1,7 @@
 import uuid
 import datetime
 from enum import Enum
-from games import available_games 
+from decision_problems import decision_problems 
 
 # Create an in-memory store of game sessions
 game_sessions = {}
@@ -53,13 +53,13 @@ class Player:
         self._time_last_score = datetime.datetime.now()
 
 class GameSession:
-    def __init__(self, game_id):
+    def __init__(self, decision_problem_name):
         
         # Generate a UUID for the game session
         self._id = str(uuid.uuid4())[:6].upper()
         
         # Reference to the game being played
-        self._game_id = game_id
+        self._decision_problem_name = decision_problem_name
         
         # Status of the game - Initializd at 'Waiting'
         self._status = GameSessionStatus.WAITING
@@ -77,14 +77,14 @@ class GameSession:
         return self._id
 
     @property
-    def game_id(self):
-        return self._game_id
+    def decistion_problem_name(self):
+        return self._decision_problem_name
     
     @property
-    def game(self):
-        if self._game_id not in available_games:
-            raise RuntimeError(f"Game {self._game_id} not found")
-        return available_games[self._game_id]
+    def decision_problem(self):
+        if self._decision_problem_name not in decision_problems:
+            raise RuntimeError(f"Decision problem {self._decision_problem_name} not found")
+        return decision_problems[self._decision_problem_name]
 
     @property
     def status(self)-> GameSessionStatus:
@@ -147,6 +147,3 @@ def get_game_session(session_id) -> GameSession:
     
 def has_game_session(session_id) -> GameSession:
     return session_id in game_sessions
-
-
-         

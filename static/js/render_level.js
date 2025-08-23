@@ -51,7 +51,7 @@ function setLevelDescription(description){
 
 /**
  * Sets the (optional) level image on the page.
- * Note: Images need to be located in the folder '/static/images/'
+ * Note: Images need to be located in the folder '/static/decision_problems/'
  * @param {string} image 
  */
 function setLevelImage(image){
@@ -62,7 +62,7 @@ function setLevelImage(image){
     // Set the (optional) image for the level 
     if( image ) {
         const img = document.createElement('img');
-        img.src = "/static/images/" + image;
+        img.src = "/static/decision_problems/" + image;
         image_container.append(img);
     }
 }

@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from games import *                 # Import the game definitions
+from decision_problems import *     # Import the decision problem definitions
 from game_sessions import *         # Import the in-memory store of game sessions
 
 routes = Blueprint('routes', __name__)
@@ -13,7 +13,7 @@ def index():
 @routes.route('/master')
 def master():
     # Go to the page for the game master
-    return render_template('master.html', available_games=available_games)
+    return render_template('master.html', decision_problems=decision_problems)
 
 @routes.route('/player')
 def player():
@@ -35,10 +35,10 @@ def game_master_view(game_session_id):
     game_session: GameSession = get_game_session(game_session_id)
     if not game_session:
         return render_template('master.html', 
-                               game_name=None, 
+                               decision_problem_name=None, 
                                game_status='UNDEFINED',
                                game_session_id=game_session_id)
     return render_template('master.html',
-                           game_name=game_session.game["name"],
+                           decision_problem_name=game_session.decision_problem.name,
                            game_status=game_session.status.name,
                            game_session_id=game_session_id)

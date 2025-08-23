@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
-
 from flask_socketio import emit, join_room
 
-# Import the game definitions
-from games import available_games                                
+#Import decision problem classes
+from decision_problems import *
 
 # Import the in-memory store of game sessions
 from game_sessions import get_game_session, has_game_session, Player, GameSession, GameSessionStatus         
@@ -126,9 +125,10 @@ def register_socket_handlers(socketio):
                 return
 
             player: Player = game_session.get_player(data["username"])
+            decision_problem: DecisionProblem = game_session.decision_problem
 
-            # Check if player is done - @TODO Remove and test if indeed not needed
-            if player.current_level == len(game_session.game['levels']):
+            # Check if player is done
+            if player.current_level == decision_problem.nr_levels:
                 emit('level_data', 
                      {'progress': player.progress},
                      to=request.sid, # Only send to the user that has requested the data
@@ -137,17 +137,16 @@ def register_socket_handlers(socketio):
             
             # Check if player is requesting a different level than the current level
             level_idx = data.get('level_idx', player.current_level)
-
-            level = game_session.game['levels'][level_idx]
+            level: DecisionProblemLevel = decision_problem.get_level(level_idx)
 
             safe_level = {
                 'idx': level_idx,
-                'name': level['name'], 
-                'summary': game_session.game['summary'],
-                'type': level['type'],
-                'description': level.get('description'),
-                'image': level.get('image'),
-                'questions': level.get('questions')
+                'name': level.name, 
+                'summary': decision_problem.summary,
+                'type': level.type,
+                'description': level.description,
+                'image': level.image,
+                'questions': level.questions
                 }
 
             emit('level_data', 
@@ -173,13 +172,14 @@ def register_socket_handlers(socketio):
 
             game_session: GameSession = get_game_session(data['game_session_id'])
             player: Player = game_session.get_player(data["username"])
-            
-            # Double check if player is done - @TODO Remove and test if indeed not needed
-            if player.current_level == len(game_session.game['levels']):
+            decision_problem: DecisionProblem = game_session.decision_problem
+
+            # Double check if player is done
+            if player.current_level == decision_problem.nr_levels:
                 player.set_finished()
                 return
-
-            level = game_session.game['levels'][player.current_level]
+            
+            level: DecisionProblemLevel = decision_problem.get_level(player.current_level)
 
             # Require for each question an answer
             submission = data.get('submission')
@@ -194,35 +194,34 @@ def register_socket_handlers(socketio):
                     print(s)
                     question = s['question']['question']
                     hint = s['question']['hint']
-                    anwser = s['question']['answer']
+                    answer = s['question']['answer']
                     submission = s['submission']
 
-                    if level['type'] == 'NUMERIC':
-                        anwser = float(anwser)
+                    if level.type == 'NUMERIC':
+                        answer = float(answer)
                         submission = float(submission)
-                        print(anwser, submission, abs(anwser - submission) )
-                        if (abs(anwser - submission) > 0.01):
+                        print(answer, submission, abs(answer - submission) )
+                        if (abs(answer - submission) > 0.01):
                             # Lower the score for each wrong try:
                             player.add_to_score(-1)
                             emit('wrong_answer', {'message': f'❌Wrong answer given for question \"{question}\"\n\n💡Hint: {hint}'})
                             return
                     
-                    if level['type'] == 'OPTIONS':
-                        if (anwser != submission):
+                    if level.type == 'OPTIONS':
+                        if (answer != submission):
                             # Lower the score for each wrong try:
                             player.add_to_score(-1)
                             emit('wrong_answer', {'message': f'❌Wrong answer given for question \"{question}\"\n\n💡Hint: {hint}'})
                             return
             
             # Increase the score for the player
-            score = level['score']
-            player.add_to_score(score)
+            player.add_to_score(level.score)
 
             # Move to next level
             player.next_level()
 
             # Check if player is done
-            if player.current_level == len(game_session.game['levels']):
+            if player.current_level == decision_problem.nr_levels:
                 player.set_finished()
 
             # Update the leader board

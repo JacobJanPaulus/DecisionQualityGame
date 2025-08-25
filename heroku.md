@@ -8,7 +8,7 @@
 
 3. Push code to Heroku 
 
-    ```git push heroku main```
+    ```git push heroku master```
 
 4. Scale at least one web dyno
 

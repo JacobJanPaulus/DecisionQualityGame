@@ -77,6 +77,7 @@ A level is specified as follows:
             "hint": "Does this effect how you play the first game?" ,
             "options": ["given", "in scope", "later", "not a decision"]
         }
+    ],
     "score": 10
 }
 ```

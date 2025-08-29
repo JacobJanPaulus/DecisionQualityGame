@@ -1,23 +1,29 @@
-### Running Decision Quality Game on Heroku
+# How to deploy the Decision Quality Game Platform on Heroku
 
-0. Create an Heroku account
-1. Install the Heroku CLI via [Heroku CLI install guide](https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli)
-2. Create the app on Heroku (one-time)
+### Step by step
+
+1. Go to [Heroku](https://www.heroku.com/)
+
+2. Create an Heroku account
+
+3. Install the Heroku CLI via [Heroku CLI install guide](https://devcenter.heroku.com/articles/heroku-cli#install-the-heroku-cli)
+
+4. Create the app on Heroku (one-time)
     
 	```heroku create dq-game```
 
-3. Push code to Heroku 
+5. Push the project's source code to Heroku
 
     ```git push heroku master```
 
-4. Scale at least one web dyno
+6. Scale at least one web dyno
 
     ```heroku ps:scale web=1```
 
-5. Open the app
+7. Open the app
 
     ```heroku open```
 
-6. See logs if needed
+8. See logs if needed
 
     ```heroku logs --tail```

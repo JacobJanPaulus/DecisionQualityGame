@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
+from flask_socketio import emit
 from decision_problems import *     # Import the decision problem definitions
 from game_sessions import *         # Import the in-memory store of game sessions
 
@@ -25,6 +26,13 @@ def player():
 def create_game():
     # Game master selected game id
     game_id = request.form['game_id']
+    # Capture the password from form
+    password = request.form['password']
+    if password != "DQ_GAME!":
+        return render_template('master.html', 
+                               decision_problems=decision_problems,
+                               password_error="❌ Invalid password")
+
     # Create the game session
     game_session = GameSession(game_id)
     return redirect(url_for('routes.game_master_view', game_session_id=game_session.id))
@@ -36,9 +44,11 @@ def game_master_view(game_session_id):
     if not game_session:
         return render_template('master.html', 
                                decision_problem_name=None, 
+                               password_error=None,
                                game_status='UNDEFINED',
                                game_session_id=game_session_id)
     return render_template('master.html',
                            decision_problem_name=game_session.decision_problem.name,
+                           password_error=None,
                            game_status=game_session.status.name,
                            game_session_id=game_session_id)

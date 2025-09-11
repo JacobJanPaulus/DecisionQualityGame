@@ -35,7 +35,20 @@
                 {% for key, value in decision_problems.items() %}
                 <option value="{{ key }}">{{ value['name'] }}</option>
                 {% endfor %}
-            </select><br>
+            </select>
+            
+            <br><br>
+
+            <label for="password">Enter the password:</label><br>
+            <input type="password" name="password" id="password" required><br>
+            {% if password_error %}
+                <div class="error-message" style="color: red; margin-bottom: 1em;">
+                    {{ password_error }}
+                </div>
+            {% endif %}
+
+            <br>
+
             <button type="submit">Create Game</button>
         </form>
         {% endif %}

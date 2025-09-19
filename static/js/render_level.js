@@ -127,10 +127,20 @@ function create_numeric_questions(questions, level_idx, player_at_level_idx){
             const inputCell = document.createElement('td');
             const input = document.createElement('input');
             inputCell.className = 'input-cell';
-            input.type = 'number';
             input.id = `question-${index}`;
             input.name = `question-${index}`;
-           
+            
+            // Make it only accept numeric values
+            input.type = 'text';
+            input.inputMode = 'decimal';
+            input.pattern = '-?[0-9]*[.,]?[0-9]*';
+            input.addEventListener('input', () => {
+            input.value = input.value
+                .replace(/[^0-9.-]/g, '')     // keep digits, one "-" and one "."
+                .replace(/(?!^)-/g, '')       // only allow "-" at start
+                .replace(/(\..*?)\..*/g, '$1'); // only one "."
+            });
+                    
 
             // 🔒 Disable the input if the user is not at this level and show the right answer
             if (level_idx < player_at_level_idx) {

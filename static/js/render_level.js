@@ -270,7 +270,7 @@ function setLevelButtons(type, questions, level_idx, player_level_idx){
         checkButton.style.marginRight = '8px';
 
         // Assign the submit level function to the button
-        checkButton.onclick = () => submitLevel(questions);
+        checkButton.onclick = () => submitLevel(level_idx, questions);
         
         buttons_container.appendChild(checkButton);
     }
@@ -302,7 +302,7 @@ function gotoLevel(level_idx){
 /**
  * Submit the aswers to the questions. To be checked by the back-end.
 */
-function submitLevel(questions) {
+function submitLevel(level_idx, questions) {
 
     const inputs = document.querySelectorAll('#levelQuestions input');
     
@@ -333,6 +333,7 @@ function submitLevel(questions) {
 
     socket.emit('submit_level', {
         game_session_id: gameSessionId,
+        level_idx:level_idx,
         username,
         submission
     });

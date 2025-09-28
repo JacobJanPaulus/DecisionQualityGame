@@ -179,6 +179,14 @@ def register_socket_handlers(socketio):
                 player.set_finished()
                 return
             
+            # Double check if the level submitted this the level the player is on
+            if player.current_level != data['level_idx']:
+                emit('error', 
+                        {'message': f'❌ Submission not for the current level. Refresh the page.'},
+                        to=request.sid, # Only send to the user that made the submission
+                        )
+                return
+            
             level: DecisionProblemLevel = decision_problem.get_level(player.current_level)
 
             # Require for each question an answer

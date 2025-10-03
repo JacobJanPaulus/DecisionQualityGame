@@ -1,50 +1,57 @@
 {
     "name": "Dice game",
-    "summary": "You are asked to participate in a game of dice. The croupier will roll a regular dice two times and if the product of the resulting pips is at least 19, you get a pay-off of 36€. The stake for the game is 9€.\n\nWhen the croupier sees your hesitance to play, you are offered to see the result of the first roll for 4€, before paying additional 6€ to continue to the second dice roll.\n\nWhat will you do to maximize your result?",
+    "summary": "You are asked to participate in a game of dice. The croupier will roll a regular dice two times and if the product of the resulting pips is at least 19, you get a pay-off of 36€. The stake for the game is 9€.\n\nWhen the croupier sees your hesitance to play, you are offered to see the result of the first die roll for 4€, before paying additional 6€ to continue to the second die roll.\n\nWhat will you do to maximize your expected pay-off?",
     "levels": [
         {
             "name": "Game introduction",
             "type": "NONE",
-            "description": "You are asked to participate in a game of dice. The croupier will roll a regular dice two times and if the product of the resulting pips is at least 19, you get a pay-off of 36€. The stake for the game is 9€.\n\nWhen the croupier sees your hesitance to play, you are offered to see the result of the first roll for 4€, before paying additional 6€ to continue to the second dice roll.\n\nWhat will you do to maximize your result?",
+            "description": "You are asked to participate in a game of dice. The croupier will roll a regular dice two times and if the product of the resulting pips is at least 19, you get a pay-off of 36€. The stake for the game is 9€.\n\nWhen the croupier sees your hesitance to play, you are offered to see the result of the first die roll for 4€, before paying additional 6€ to continue to the second die roll.\n\nWhat will you do to maximize your expected pay-off?",
             "score": 1
         },
         {
             "name": "Framing",
             "type": "OPTIONS",
-            "description": "To help the decision-making process we should be clear on the framing;\n\nWhat can be considered as 'given', and is out of scope for the decision at hand?\nWhat is to be decided 'later' and not important for now?\nWhat is actually a decision to take now and is 'in scope'?",
+            "description": "To help the decision-making process we should be clear on the framing.\n\nWhat can be considered as 'given', and is out of scope for the decision at hand?\nWhat is to be decided 'out of scope' and not important for now?\nWhat is actually the decision to take and is therefore 'in scope'?",
             "questions": [
                 {
-                    "question" : "Let the crourpier role one or two dice", 
+                    "question" : "Let the crourpier role one die or two dice", 
                     "answer": "in scope",
-                    "hint": "Does this effect how you play the game and its outcome?",
-                    "options": ["given", "in scope", "later", "not a decision"]
+                    "hint": "Does this affect how you play the game and its outcome?",
+                    "options": ["given", "in scope", "out of scope"]
                 },
                 { 
                     "question" : "Play the game a second time or not", 
-                    "answer": "later",
-                    "hint": "Does this effect how you play the first game?" ,
-                    "options": ["given", "in scope", "later", "not a decision"]
+                    "answer": "out of scope",
+                    "hint": "Does this affect how you play the first game?" ,
+                    "options": ["given", "in scope", "out of scope"]
                 },
                 {
                     "question" : "Participate in playing the game or not", 
                     "answer": "in scope",
-                    "hint": "Does this effect the outcome? How much you win or lose?",
-                    "options": ["given", "in scope", "later", "not a decision"]
+                    "hint": "Does this affect the outcome?",
+                    "options": ["given", "in scope", "out of scope"]
                 },
-                { 
-                    "question" : "You like to play games", 
-                    "answer": "not a decision",
-                    "hint": "This is not a dicision but a value that might influence your decision making" ,
-                    "options": ["given", "in scope", "later", "not a decision"]
+                {
+                    "question" : "Assume the dice used are fair", 
+                    "answer": "given",
+                    "hint": "This is not a decision but an assumption you can take as a given",
+                    "options": ["given", "in scope", "out of scope"]
                 }
             ],
             
             "score": 10
         },
         {
-            "name": "Decision tree (Step 1)",
+            "name": "Decision tree",
+            "type": "NONE",
+            "description": "A decision tree visualizes options, scenarios and potential outcomes (costs, benefits, probabilities) to guide you to the best decision.\n\nTake a look at the picture below. Every square represents a decision and every circle an uncertain event.\n\nTo start with, you have 3 options to choose from: Play with both dice, Roll first die, Don't play.\n\nIn the next pages, you will step-by-step add probabilities to the paths in the decision tree, and add the costs and pay-offs.",
+            "image": "dice_game_decision_tree0.jpg",
+            "score": 1
+        },
+        {
+            "name": "Decision tree - Suppose you play",
             "type": "NUMERIC",
-            "description": "Add to the decision tree the probabilities, cost and pay-out",
+            "description": "Fill the top part of the decision tree.\n\nFor the case where you decide to play, add to the decision tree the probabilities, cost and pay-out.\n\nNote: Enter probabilities as decimal values, ranging from 0.000 to 1.000.",
             "image": "dice_game_decision_tree1.jpg",
             "questions": [
                 { 
@@ -60,174 +67,213 @@
                 { 
                     "question" : "The is the cost c1 and c2?", 
                     "answer": 9,
-                    "hint": "" 
-                },
-                { 
-                    "question" : "The is the cost c3?", 
-                    "answer": 0,
-                    "hint": "" 
+                    "hint": "How much does it cost to play the game?" 
                 },
                 { 
                     "question" : "The is the pay-out v1?", 
                     "answer": 0,
-                    "hint": "" 
+                    "hint": "How much to you get when the products of the pips is less than 19?"
                 },
                 { 
                     "question" : "The is the pay-out v2?", 
                     "answer": 36,
-                    "hint": "" 
-                },
-                { 
-                    "question" : "The is the pay-out v3?", 
-                    "answer": 0,
-                    "hint": "" 
+                    "hint": "How much to you get when the products of the pips is 19 or higher?"
                 }
             ],
             "score": 10
         },
         {
-            "name": "Decision tree (Step 2)",
+            "name": "Decision tree - Suppose you don't play",
             "type": "NUMERIC",
-            "description": "Add to the decision tree the probabilities, cost and pay-out",
+            "description": "Fill the bottom part of the decision tree.\n\nFor the case where you decide not to play, add to the decision tree the probabilities, cost and pay-out.\n\nNote: Enter probabilities as decimal values, ranging from 0.000 to 1.000.",
             "image": "dice_game_decision_tree2.jpg",
             "questions": [
                 { 
-                    "question" : "What is the probability p1?", 
-                    "answer": 0.5,
-                    "hint": ""
-                },
-                { 
-                    "question" : "What is the probability p2?", 
-                    "answer": 1,
-                    "hint": ""
-                },
-                { 
-                    "question" : "What is the probability p3?", 
+                    "question" : "The is the cost c1?", 
                     "answer": 0,
-                    "hint": ""
+                    "hint": "If you don't play you don't pay." 
                 },
                 { 
-                    "question" : "The is the cost c1 and c2?", 
-                    "answer": 10,
-                    "hint": ""
-                },
-                { 
-                    "question" : "The is the cost c3?", 
-                    "answer": 4,
-                    "hint": ""
-                },
-                { 
-                    "question" : "The is the pay-out v1, v2 and v3?",
+                    "question" : "The is the pay-out v1?", 
                     "answer": 0,
-                    "hint": ""
+                    "hint": "If you don't play you don't win." 
                 }
             ],
-            "score": 10
+            "score": 5
         },
         {
-            "name": "Decision tree (Step 3)",
+            "name": "Decision tree - Suppose you get to see only the first die (1)",
             "type": "NUMERIC",
-            "description": "Add to the decision tree the probabilities, cost and pay-out",
+            "description": "Fill the middle part of the decision tree. Suppose the first die shows a value of at most 3.\n\nAdd to the decision tree the probabilities, cost and pay-out.\n\nNote: Enter probabilities as decimal values, ranging from 0.000 to 1.000.",
             "image": "dice_game_decision_tree3.jpg",
             "questions": [
                 { 
                     "question" : "What is the probability p1?", 
-                    "answer": 0.167,
-                    "hint": ""
+                    "answer": 0.5,
+                    "hint": "Probability of the die to roll value 1,2 or 3."
                 },
                 { 
                     "question" : "What is the probability p2?", 
-                    "answer": 0.667,
-                    "hint": ""
+                    "answer": 1,
+                    "hint": "Give that the first die has value of at most 3, can you still get a product of 19 or more?"
                 },
                 { 
                     "question" : "What is the probability p3?", 
-                    "answer": 0.333,
-                    "hint": ""
+                    "answer": 0,
+                    "hint": "Give that the first die has value of at most 3, can you still get a product of 19 or more?"
                 },
                 { 
                     "question" : "The is the cost c1 and c2?", 
                     "answer": 10,
-                    "hint": ""
+                    "hint": "First die cost 4€ the second 6€."
                 },
                 { 
                     "question" : "The is the cost c3?", 
                     "answer": 4,
-                    "hint": ""
+                    "hint": "First die cost 4€ the second 6€."
                 },
                 { 
-                    "question" : "The is the pay-out v1?",
+                    "question" : "The is the pay-out v1 and v3?",
                     "answer": 0,
-                    "hint": ""
+                    "hint": "Product higher than 19? If you don't play you don't win." 
                 },
                 { 
                     "question" : "The is the pay-out v2?",
                     "answer": 36,
-                    "hint": ""
+                    "hint": "How much to you get when the products of the pips is 19 or higher?"
+                }
+            ],
+            "score": 10
+        },
+        {
+            "name": "Decision tree - Suppose you get to see only the first die (2)",
+            "type": "NUMERIC",
+            "description": "Fill the middle part of the decision tree. Suppose the first die shows a value of 4.\n\nAdd to the decision tree the probabilities, cost and pay-out.\n\nNote: Enter probabilities as decimal values, ranging from 0.000 to 1.000.",
+            "image": "dice_game_decision_tree4.jpg",
+            "questions": [
+                { 
+                    "question" : "What is the probability p1?", 
+                    "answer": 0.167,
+                    "hint": "There are 6 x 6 possible combinations of two dice. Write down all combinations."
                 },
                 { 
-                    "question" : "The is the pay-out v3?",
+                    "question" : "What is the probability p2?", 
+                    "answer": 0.667,
+                    "hint": "There are 6 x 6 possible combinations of two dice. Write down all combinations."
+                },
+                { 
+                    "question" : "What is the probability p3?", 
+                    "answer": 0.333,
+                    "hint": "There are 6 x 6 possible combinations of two dice. Write down all combinations."
+                },
+                { 
+                    "question" : "The is the cost c1 and c2?", 
+                    "answer": 10,
+                    "hint": "First die cost 4€ the second 6€."
+                },
+                { 
+                    "question" : "The is the cost c3?", 
+                    "answer": 4,
+                    "hint": "First die cost 4€ the second 6€."
+                },
+                { 
+                    "question" : "The is the pay-out v1 and v3?",
                     "answer": 0,
-                    "hint": ""
+                    "hint": "Product higher than 19? If you don't play you don't win." 
+                },
+                { 
+                    "question" : "The is the pay-out v2?",
+                    "answer": 36,
+                    "hint": "How much to you get when the products of the pips is 19 or higher?"
                 }
             ],
 
             "score": 10
         },
         {
-            "name": "Decision tree (Step 4)",
+            "name": "Decision tree - Suppose you get to see only the first die (3)",
             "type": "NUMERIC",
-            "description": "Add to the decision tree the probabilities, cost and pay-out",
-            "image": "dice_game_decision_tree4.jpg",
+            "description": "Fill the middle part of the decision tree. Suppose the first die shows a value of at least 5.\n\nAdd to the decision tree the probabilities, cost and pay-out.\n\nNote: Enter probabilities as decimal values, ranging from 0.000 to 1.000.",
+            "image": "dice_game_decision_tree5.jpg",
             "questions": [
                 { 
                     "question" : "What is the probability p1?", 
                     "answer": 0.333,
-                    "hint": ""
+                    "hint": "There are 6 x 6 possible combinations of two dice. Write down all combinations."
                 },
                 { 
                     "question" : "What is the probability p2?", 
                     "answer": 0.5,
-                    "hint": ""
+                    "hint": "There are 6 x 6 possible combinations of two dice. Write down all combinations."
                 },
                 { 
                     "question" : "What is the probability p3?", 
                     "answer": 0.5,
-                    "hint": ""
+                    "hint": "There are 6 x 6 possible combinations of two dice. Write down all combinations."
                 },
                 { 
                     "question" : "The is the cost c1 and c2?", 
                     "answer": 10,
-                    "hint": ""
+                    "hint": "First die cost 4€ the second 6€."
                 },
                 { 
                     "question" : "The is the cost c3?", 
                     "answer": 4,
-                    "hint": ""
+                    "hint": "First die cost 4€ the second 6€."
                 },
                 { 
-                    "question" : "The is the pay-out v1?",
+                    "question" : "The is the pay-out v1 and v3?",
                     "answer": 0,
-                    "hint": ""
+                    "hint": "Product higher than 19? If you don't play you don't win." 
                 },
                 { 
                     "question" : "The is the pay-out v2?",
                     "answer": 36,
-                    "hint": ""
-                },
-                { 
-                    "question" : "The is the pay-out v3?",
-                    "answer": 0,
-                    "hint": ""
+                    "hint": "How much to you get when the products of the pips is 19 or higher?"
                 }
             ],
             "score": 10
         },
         {
-            "name": "Decision tree (Step 5)",
+            "name": "Decision tree - Select best decision (1)",
+            "type": "NUMERIC",
+            "description": "To determine the best decision, you can calculate the expected value after each decision.\n\nIn case you choose to 'Play' the expected value is -1€ (= 0.222 * 36€ + 0.778 * 0€ - 9€). If you 'Don't Play' the expected value is 0€. Determine the other expected values.",
+            "image": "dice_game_decision_tree6.jpg",
+            "questions": [
+                { 
+                    "question" : "What is the expected value v1 if you stop after the first die roll?",
+                    "answer": -4,
+                    "hint": "You don't win anything in these cases, only play for the first die."
+                },
+                { 
+                    "question" : "What is the expected value v2 if you stop after the first die roll?",
+                    "answer": -10,
+                    "hint": "There is no chance of winning, only cost of playing."
+                },
+                { 
+                    "question" : "What is the expected value v3 if you stop after the first die roll?",
+                    "answer": 2,
+                    "hint": "Multiply the chance of winning with the pay-off, and substract the cost of playing."
+                },
+                { 
+                    "question" : "What is the expected value v3 if you stop after the first die roll?",
+                    "answer": 8,
+                    "hint": "Multiply the chance of winning with the pay-off, and substract the cost of playing."
+                }
+                ,
+                { 
+                    "question" : "What is the expected value v5 if you decide to show the first die roll.",
+                    "answer": 1,
+                    "hint": "Remember that you will always choose the best option when shown the second die. Multipy the probabilities with that best option."
+                }
+            ],
+            "score": 10
+        },
+        {
+            "name": "Decision tree - Select best decision (2)",
             "type": "OPTIONS",
-            "description": "Make a decision such that the expected outcome is maximized.",
-            "image": "dice_game_decision_tree5.jpg",
+            "description": "Make the decision that maximizes the expected outcome.",
+            "image": "dice_game_decision_tree7.jpg",
             "questions": [
                 { 
                     "question" : "What is the best option?", 
@@ -236,7 +282,7 @@
                     "options" : ["Play", "Roll first die", "Don't play"]
                 }
             ],
-            "score": 10
+            "score": 5
         }
     ]
 }

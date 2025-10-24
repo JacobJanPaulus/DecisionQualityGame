@@ -135,10 +135,11 @@ function create_numeric_questions(questions, level_idx, player_at_level_idx){
             input.inputMode = 'decimal';
             input.pattern = '-?[0-9]*[.,]?[0-9]*';
             input.addEventListener('input', () => {
-            input.value = input.value
-                .replace(/[^0-9.-]/g, '')     // keep digits, one "-" and one "."
-                .replace(/(?!^)-/g, '')       // only allow "-" at start
-                .replace(/(\..*?)\..*/g, '$1'); // only one "."
+                input.value = input.value
+                    .replace(/,/g, '.')                // replace all "," with "."
+                    .replace(/[^0-9.-]/g, '')          // keep digits, ".", and "-"
+                    .replace(/(?!^)-/g, '')            // only allow "-" at the start
+                    .replace(/(\..*?)\..*/g, '$1');    // allow only one "."
             });
                     
 

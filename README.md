@@ -8,10 +8,10 @@ With this web-based platform Decision Quality concepts can be explained in the f
 
 With simple syntax for these three basic building blocks, new games can be created. This project includes example games. 
 
-This platform is freely available via GitHub under an Apache 2.0 license, and made possible with financial support from the European Decision Professionals Network (https://www.decisionprofessionals.com/) and CQM (https://www.cqm.nl/).
+This platform is freely available via GitHub under an Apache 2.0 license, and made possible with financial support from the European Decision Professionals Network and CQM (https://www.cqm.nl/).
 
 ## About The Project
-The concept for the Decision Quality (DQ) Game Platform originated from prof.dr. Kuno Huisman, who teaches DQ concepts in guest lectures. A detailed R&D investment case study was developed and successfully used for over a decade in both university and business settings. To make this material more accessible, the case was broken down into a step-by-step process using Microsoft Forms, which formed the foundational idea for this interactive game platform. The copyright and IP of the platform is owned by Tilburg University, where prof.dr. Kuno Huisman holds the special chair on Decision Making under Uncertainty that is sponsored by ASML. Link to his profile: https://research.tilburguniversity.edu/en/persons/kuno-huisman/?_gl=1*1kw2l5i*_gcl_au*Mzk3MDIxOTMuMTc1ODY1MTcxMw..*FPAU*Mzk3MDIxOTMuMTc1ODY1MTcxMw..   
+The concept for the Decision Quality (DQ) Game Platform originated from prof.dr. Kuno Huisman, who teaches DQ concepts in guest lectures. A detailed R&D investment case study was developed and successfully used for over a decade in both university and business settings. To make this material more accessible, the case was broken down into a step-by-step process using Microsoft Forms, which formed the foundational idea for this interactive game platform. The copyright and IP of the platform is owned by Tilburg University, where prof.dr. Kuno Huisman holds the special chair on Decision Making under Uncertainty that is sponsored by ASML. Link to his profile: https://research.tilburguniversity.edu/en/persons/kuno-huisman/.   
 
 ## Getting Started as Developer
 The project uses Python, HTML and JavaScript. To get started you can use for example Visual Studio Code as the IDE.
